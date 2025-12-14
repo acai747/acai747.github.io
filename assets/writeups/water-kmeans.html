@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>K-Means Clustering for Water Treatment | Andrew Cai</title>
+  <meta name="description" content="Unsupervised learning project clustering water samples to explore treatment planning using K-Means and PCA." />
+
+  <style>
+    :root{
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --ink:#1f2a44;
+      --muted:#58627a;
+      --brand:#2563eb;
+      --ring: rgba(37,99,235,.25);
+      --border:#e9e9f3;
+      --shadow: 0 8px 24px rgba(31,42,68,.06);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      margin:0;
+      line-height:1.6;
+    }
+    .wrap{ max-width: 900px; margin:0 auto; padding:24px; }
+
+    header{ padding: 18px 0 8px; }
+    header a{
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+    }
+    header a:hover{ text-decoration:underline; }
+
+    h1{
+      margin: 10px 0 6px;
+      font-size: 1.9rem;
+      letter-spacing:-.2px;
+    }
+    h2{ margin-top: 26px; font-size: 1.25rem; }
+    p{ margin: 10px 0; }
+    ul{ margin: 8px 0 8px 18px; }
+    li{ margin: 6px 0; }
+
+    .meta{ color:var(--muted); font-size:.95rem; }
+
+    section{
+      background:var(--card);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      padding:20px;
+      margin: 16px 0;
+      border: 1px solid var(--border);
+    }
+
+    .hero img{
+      width:100%;
+      border-radius:12px;
+      margin-top: 10px;
+      background:#eaeaf3;
+    }
+
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .pill{
+      font-size: .88rem;
+      background:#f3f6ff;
+      border:1px solid #e1e6ff;
+      padding:4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid #d6daf1;
+      text-decoration:none;
+      color:var(--brand);
+      font-weight:700;
+      background:#f8faff;
+      margin-right: 8px;
+      margin-top: 6px;
+    }
+    .btn:hover{ box-shadow:0 0 0 4px var(--ring); }
+
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .kpi .box{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      background:#fff;
+    }
+    .kpi .box strong{ display:block; margin-bottom: 4px; }
+    .kpi .box span{ color:var(--muted); font-size: .95rem; }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:24px 0 6px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- Back navigation -->
+    <header>
+      <a href="../../index.html">← Back to Portfolio</a>
+    </header>
+
+    <!-- Title / Overview -->
+    <section class="hero">
+      <h1>K-Means Clustering for Water Treatment Planning</h1>
+      <p class="meta">
+        Unsupervised Learning · Clustering · PCA · Feature Scaling · Domain Interpretation
+      </p>
+
+      <!-- Optional hero image -->
+      <img src="../img/water-kmeans.png" alt="PCA plot or clustering visualization preview" />
+
+      <div class="pillrow">
+        <span class="pill">Python</span>
+        <span class="pill">Pandas</span>
+        <span class="pill">scikit-learn</span>
+        <span class="pill">K-Means</span>
+        <span class="pill">PCA</span>
+        <span class="pill">Model Evaluation</span>
+      </div>
+
+      <p>
+        Designed an unsupervised learning workflow to cluster water bodies using measured quality attributes
+        with the goal of exploring whether clusters could support tailored treatment plant strategies.
+      </p>
+
+      <p>
+        <a class="btn" href="https://github.com/acai747/K-Means-Water-Treatment" target="_blank" rel="noopener">GitHub Repo</a>
+      </p>
+    </section>
+
+    <!-- Problem -->
+    <section>
+      <h2>Problem Statement</h2>
+      <p>
+        Water quality varies significantly across sources due to different contaminants and environmental conditions.
+        If water bodies can be clustered into meaningful groups, treatment strategies could be standardized and adapted
+        for new samples based on the cluster they belong to (e.g., treatments targeting nitrates vs metal content).
+      </p>
+      <p>
+        The goal of this project was to test whether clustering could identify actionable groupings of water samples
+        that would meaningfully support treatment planning.
+      </p>
+    </section>
+
+    <!-- Data -->
+    <section>
+      <h2>Data</h2>
+      <p>
+        The dataset included quantitative water quality attributes describing each sample (e.g., chemical composition and contaminant measures).
+      </p>
+      <ul>
+        <li>Inputs: water quality feature vectors (numeric attributes)</li>
+        <li>Preprocessing: handling missing values, scaling features, converting to binary/thresholded representations where applicable</li>
+        <li>Goal: cluster samples and interpret clusters as potential treatment categories</li>
+      </ul>
+    </section>
+
+    <!-- Approach -->
+    <section>
+      <h2>Approach</h2>
+      <p>
+        I implemented a clustering pipeline and evaluated variants with and without dimensionality reduction to assess stability and interpretability.
+      </p>
+
+      <ul>
+        <li>Feature preprocessing and scaling to standardize attribute ranges</li>
+        <li>Applied <strong>K-Means</strong> clustering across candidate cluster counts</li>
+        <li>Evaluated clustering quality using internal metrics (e.g., silhouette score) and practical interpretability</li>
+        <li>Applied <strong>PCA</strong> to reduce dimensionality and improve clustering performance/visualization</li>
+      </ul>
+    </section>
+
+    <!-- Evaluation -->
+    <section>
+      <h2>Evaluation & Findings</h2>
+
+      <div class="kpi">
+        <div class="box">
+          <strong>Best Variant</strong>
+          <span>PCA-reduced binary dataset performed best across evaluated metrics.</span>
+        </div>
+        <div class="box">
+          <strong>Optimal Clusters</strong>
+          <span>K-Means selected too few clusters (k = 2), limiting actionable segmentation.</span>
+        </div>
+        <div class="box">
+          <strong>Conclusion</strong>
+          <span>Clustering was not viable for treatment design under this dataset structure.</span>
+        </div>
+      </div>
+
+      <ul style="margin-top:12px;">
+        <li>PCA-reduced versions consistently outperformed non-PCA variants on clustering metrics</li>
+        <li>Optimal k was too small to support practical treatment differentiation</li>
+        <li>Results highlighted the importance of domain knowledge: computational “best” does not always equal meaningful</li>
+      </ul>
+    </section>
+
+    <!-- Interpretation -->
+    <section>
+      <h2>Interpretation</h2>
+      <p>
+        Although clustering metrics suggested k=2 as optimal, this outcome implied the dataset did not naturally form distinct,
+        actionable groups. From a treatment planning perspective, it is not meaningful to design curated treatment plants if the
+        algorithm effectively recommends “treat everything” across most samples.
+      </p>
+      <p>
+        This project demonstrates the critical step of validating machine learning outputs against real-world feasibility and economics,
+        rather than relying on metrics alone.
+      </p>
+    </section>
+
+    <!-- Challenges -->
+    <section>
+      <h2>Challenges & Limitations</h2>
+      <ul>
+        <li>K-Means assumes spherical clusters and equal variance, which may not match real water quality distributions</li>
+        <li>Binary thresholding can simplify signals but may remove important nuance</li>
+        <li>Unsupervised “ground truth” is ambiguous — interpretability and domain constraints matter</li>
+      </ul>
+    </section>
+
+    <!-- Extensions -->
+    <section>
+      <h2>Extensions & Future Work</h2>
+      <ul>
+        <li>Try alternative clustering methods (GMM, hierarchical clustering, DBSCAN) that support non-spherical clusters</li>
+        <li>Incorporate domain-informed feature weighting (e.g., prioritize regulated contaminants)</li>
+        <li>Evaluate cluster usefulness via treatment cost models or expert-labeled categories</li>
+        <li>Explore semi-supervised approaches if limited labeled treatment classes exist</li>
+      </ul>
+    </section>
+
+    <!-- Takeaways -->
+    <section>
+      <h2>Key Takeaways</h2>
+      <p>
+        This project strengthened my ability to build and evaluate unsupervised learning pipelines, compare preprocessing strategies
+        (binary vs continuous, PCA vs non-PCA), and interpret results through a practical, real-world lens. It reinforced that strong
+        modeling requires both statistical rigor and domain validation.
+      </p>
+    </section>
+
+    <footer>
+      <p>© 2025 Andrew Cai</p>
+    </footer>
+
+  </div>
+</body>
+</html>
