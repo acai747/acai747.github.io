@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Playlist Vibe Anomaly Detection | Andrew Cai</title>
+  <meta name="description" content="Detect off-vibe songs in Spotify playlists and recommend replacements using audio feature similarity." />
+
+  <style>
+    :root{
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --ink:#1f2a44;
+      --muted:#58627a;
+      --brand:#2563eb;
+      --ring: rgba(37,99,235,.25);
+      --border:#e9e9f3;
+      --shadow: 0 8px 24px rgba(31,42,68,.06);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      margin:0;
+      line-height:1.6;
+    }
+    .wrap{ max-width: 900px; margin:0 auto; padding:24px; }
+
+    header{ padding: 18px 0 8px; }
+    header a{
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+    }
+    header a:hover{ text-decoration:underline; }
+
+    h1{
+      margin: 10px 0 6px;
+      font-size: 1.9rem;
+      letter-spacing:-.2px;
+    }
+    h2{ margin-top: 26px; font-size: 1.25rem; }
+    h3{ margin-top: 18px; font-size: 1.05rem; }
+    p{ margin: 10px 0; }
+    ul{ margin: 8px 0 8px 18px; }
+    li{ margin: 6px 0; }
+
+    .meta{ color:var(--muted); font-size:.95rem; }
+
+    section{
+      background:var(--card);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      padding:20px;
+      margin: 16px 0;
+      border: 1px solid var(--border);
+    }
+
+    .hero img{
+      width:100%;
+      border-radius:12px;
+      margin-top: 10px;
+      background:#eaeaf3;
+    }
+
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .pill{
+      font-size: .88rem;
+      background:#f3f6ff;
+      border:1px solid #e1e6ff;
+      padding:4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid #d6daf1;
+      text-decoration:none;
+      color:var(--brand);
+      font-weight:700;
+      background:#f8faff;
+      margin-right: 8px;
+      margin-top: 6px;
+    }
+    .btn:hover{ box-shadow:0 0 0 4px var(--ring); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background:#f3f6ff;
+      border:1px solid #e1e6ff;
+      padding:2px 6px;
+      border-radius:6px;
+      font-size: .95em;
+    }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:24px 0 6px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- Back navigation -->
+    <header>
+      <a href="../../index.html">← Back to Portfolio</a>
+    </header>
+
+    <!-- Title / Overview -->
+    <section class="hero">
+      <h1>Playlist “Vibe” Anomaly Detection + Recommendations</h1>
+      <p class="meta">
+        Anomaly Detection · Similarity Search · Feature Standardization · PCA (Visualization) · Python
+      </p>
+
+      <!-- Optional hero image -->
+      <img src="../img/playlist-anomaly.png" alt="Playlist vibe analysis visualization preview" />
+
+      <div class="pillrow">
+        <span class="pill">Python</span>
+        <span class="pill">Pandas</span>
+        <span class="pill">NumPy</span>
+        <span class="pill">Scikit-learn</span>
+        <span class="pill">Cosine Distance</span>
+        <span class="pill">Z-scores</span>
+        <span class="pill">PCA</span>
+      </div>
+
+      <p>
+        Built a content-based system that identifies “off-vibe” songs within user-curated playlists by comparing
+        song audio features (e.g., energy, tempo, danceability, valence) to a playlist’s dominant musical profile.
+      </p>
+
+      <p>
+        The system flags anomalies relative to the playlist context (not globally) and recommends replacements
+        that better match the playlist’s core vibe.
+      </p>
+
+      <p>
+        <a class="btn" href="https://github.com/acai747/Anomaly-Detection-Recommendations-Playlists" target="_blank" rel="noopener">GitHub Repo</a>
+      </p>
+    </section>
+
+    <!-- Problem -->
+    <section>
+      <h2>Problem Statement</h2>
+      <p>
+        Curated playlists are often built around a specific mood or “vibe.” A single mismatched track can disrupt
+        the flow and reduce engagement, but most recommendation systems focus on predicting what users might like next
+        rather than validating internal playlist coherence.
+      </p>
+      <p>
+        The goal of this project is to detect songs that deviate from the dominant vibe within a playlist and suggest
+        replacements that better match the playlist identity.
+      </p>
+    </section>
+
+    <!-- Data -->
+    <section>
+      <h2>Data</h2>
+      <p>
+        The project used two inputs: (1) user-created playlists (artist/title metadata) and (2) a larger song-level dataset
+        containing Spotify-derived audio features (tempo, loudness, danceability, energy, acousticness, instrumentalness, etc.).
+      </p>
+      <ul>
+        <li>Playlist-level inputs: song titles + artists (inconsistent formatting and missing matches)</li>
+        <li>Song feature table: numeric audio features used to represent each track’s musical profile</li>
+      </ul>
+    </section>
+
+    <!-- Approach -->
+    <section>
+      <h2>Approach</h2>
+      <p>
+        Each playlist is represented in standardized feature space. I compute a playlist centroid as the dominant vibe
+        and measure each song’s deviation using cosine distance. Songs with unusually high deviation are flagged as anomalies.
+      </p>
+
+      <ul>
+        <li>Cleaned and normalized track/artist text for improved matching</li>
+        <li>Standardized audio feature vectors using <span class="code">StandardScaler</span></li>
+        <li>Computed a playlist centroid (dominant vibe representation)</li>
+        <li>Calculated cosine distance of each track to the centroid</li>
+        <li>Converted distances to z-scores to flag outliers above a threshold</li>
+      </ul>
+    </section>
+
+    <!-- Recommendations -->
+    <section>
+      <h2>Recommendation Strategy</h2>
+      <p>
+        For each detected anomaly, the system proposes replacement tracks that are closer to the playlist centroid in the same
+        standardized feature space. This produces interpretable recommendations aligned with the playlist’s dominant vibe.
+      </p>
+
+      <ul>
+        <li>Compute similarity between playlist centroid and candidate tracks</li>
+        <li>Rank replacements by smallest cosine distance to centroid</li>
+        <li>Return top-N replacements and explain why (feature alignment)</li>
+      </ul>
+    </section>
+
+    <!-- Results -->
+    <section>
+      <h2>Results & Observations</h2>
+      <ul>
+        <li>Worked well for playlists with a single dominant vibe (clear centroid structure)</li>
+        <li>PCA plots (when used) visually supported clusters and outlier tracks</li>
+        <li>Anomaly scores were interpretable and aligned with audible “mismatch” in many playlists</li>
+      </ul>
+    </section>
+
+    <!-- Challenges -->
+    <section>
+      <h2>Challenges & Limitations</h2>
+      <ul>
+        <li>Track matching issues (aliases, formatting differences, incomplete playlist metadata)</li>
+        <li>Small playlists provide less structure, making anomaly detection less stable</li>
+        <li>Multi-vibe playlists can be misrepresented by a single centroid approach</li>
+        <li>Audio features may not fully capture subjective vibe (context/lyrics/culture)</li>
+      </ul>
+    </section>
+
+    <!-- Extensions -->
+    <section>
+      <h2>Extensions & Future Work</h2>
+      <ul>
+        <li>Multi-centroid representations (e.g., cluster playlists into sub-vibes)</li>
+        <li>Robust outlier detection methods (e.g., Isolation Forest, LOF) for comparison</li>
+        <li>Hybrid features using lyrics/text embeddings or genre metadata</li>
+        <li>User feedback loop to evaluate recommendation acceptance</li>
+      </ul>
+    </section>
+
+    <!-- Takeaways -->
+    <section>
+      <h2>Key Takeaways</h2>
+      <p>
+        This project demonstrates how simple, interpretable similarity-based methods can fill a gap in music tooling by focusing
+        on playlist coherence rather than global recommendation. It strengthened my experience in feature engineering, anomaly detection,
+        similarity metrics, and building practical systems that align model outputs with user experience.
+      </p>
+    </section>
+
+    <footer>
+      <p>© 2025 Andrew Cai</p>
+    </footer>
+
+  </div>
+</body>
+</html>
