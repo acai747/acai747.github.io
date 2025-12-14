@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multi-Lane Traffic Simulation | Andrew Cai</title>
+  <meta name="description" content="Particle-based traffic simulation with entrances, exits, and driver behavior modeling." />
+
+  <style>
+    :root{
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --ink:#1f2a44;
+      --muted:#58627a;
+      --brand:#2563eb;
+      --ring: rgba(37,99,235,.25);
+      --border:#e9e9f3;
+      --shadow: 0 8px 24px rgba(31,42,68,.06);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      margin:0;
+      line-height:1.6;
+    }
+    .wrap{ max-width: 900px; margin:0 auto; padding:24px; }
+
+    header{
+      padding: 18px 0 8px;
+    }
+    header a{
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+    }
+    header a:hover{ text-decoration:underline; }
+
+    h1{
+      margin: 10px 0 6px;
+      font-size: 1.9rem;
+      letter-spacing:-.2px;
+    }
+    h2{
+      margin-top: 26px;
+      font-size: 1.25rem;
+    }
+    h3{
+      margin-top: 18px;
+      font-size: 1.05rem;
+    }
+    p{ margin: 10px 0; }
+    ul{ margin: 8px 0 8px 18px; }
+    li{ margin: 6px 0; }
+
+    .meta{
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    section{
+      background:var(--card);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      padding:20px;
+      margin: 16px 0;
+      border: 1px solid var(--border);
+    }
+
+    .hero{
+      margin-top: 12px;
+    }
+    .hero img{
+      width:100%;
+      border-radius:12px;
+      margin-top: 10px;
+      background:#eaeaf3;
+    }
+
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .pill{
+      font-size: .88rem;
+      background:#f3f6ff;
+      border:1px solid #e1e6ff;
+      padding:4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid #d6daf1;
+      text-decoration:none;
+      color:var(--brand);
+      font-weight:700;
+      background:#f8faff;
+      margin-right: 8px;
+      margin-top: 6px;
+    }
+    .btn:hover{
+      box-shadow:0 0 0 4px var(--ring);
+    }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:24px 0 6px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- Back navigation -->
+    <header>
+      <a href="../../index.html">← Back to Portfolio</a>
+    </header>
+
+    <!-- Title / Overview -->
+    <section class="hero">
+      <h1>Multi-Lane Traffic Simulation with Entrances and Exits</h1>
+      <p class="meta">
+        Particle-based traffic model · Python · Object-Oriented Design · Unit Testing
+      </p>
+
+      <!-- Optional hero image -->
+      <img src="assets/img/traffic-sim.png" alt="Traffic simulation visualization" />
+
+      <div class="pillrow">
+        <span class="pill">Python</span>
+        <span class="pill">OOP</span>
+        <span class="pill">Simulation</span>
+        <span class="pill">Unit Testing</span>
+        <span class="pill">Traffic Modeling</span>
+        <span class="pill">Emissions (VSP)</span>
+      </div>
+
+      <p>
+        This project focuses on building a discrete, particle-based traffic simulator capable of modeling
+        real-world highway dynamics, including multi-lane roads, entrance ramps, exit ramps, and heterogeneous
+        driver behaviors.
+      </p>
+
+      <p>
+        The simulator serves as a virtual laboratory for exploring congestion patterns, safety implications,
+        and future extensions such as emissions modeling and policy analysis.
+      </p>
+
+      <p>
+        <a class="btn" href="https://github.com/acai747/Traffic-Model-Development" target="_blank" rel="noopener">GitHub Repo</a>
+      </p>
+    </section>
+
+    <!-- Problem -->
+    <section>
+      <h2>Problem Statement</h2>
+      <p>
+        Traffic congestion is a persistent urban challenge that contributes to increased travel times,
+        higher emissions, safety risks, and socioeconomic inequities. Traditional traffic models often
+        simplify driver behavior or fail to explicitly capture the disruptive effects of entrance and
+        exit ramps.
+      </p>
+      <p>
+        The goal of this project is to design a flexible simulation framework that models individual
+        vehicle decisions and their emergent effects on traffic flow.
+      </p>
+    </section>
+
+    <!-- Approach -->
+    <section>
+      <h2>Approach</h2>
+      <p>
+        I implemented a discrete-time, particle-based model where each vehicle is treated as an autonomous
+        agent with a current state and a set of possible actions.
+      </p>
+
+      <ul>
+        <li>Object-oriented design for cars, lanes, entrances, and exits</li>
+        <li>Rule-based acceleration, braking, merging, and lane-change logic</li>
+        <li>Explicit modeling of entrance-induced disturbances and exit relief</li>
+        <li>Robust unit tests to validate correctness under edge cases</li>
+      </ul>
+    </section>
+
+    <!-- Data / Simulation Details -->
+    <section>
+      <h2>Simulation Details</h2>
+      <p>
+        The simulation evolves traffic discretely over time, updating vehicle positions, velocities,
+        and lane assignments at each timestep. Inputs such as road geometry, entry rates, and driver
+        behavior parameters can be modified to explore different scenarios.
+      </p>
+    </section>
+
+    <!-- Results -->
+    <section>
+      <h2>Results & Observations</h2>
+      <ul>
+        <li>Successfully modeled congestion waves caused by merging behavior</li>
+        <li>Demonstrated relief effects downstream of exit ramps</li>
+        <li>Verified stability and correctness through extensive automated tests</li>
+      </ul>
+    </section>
+
+    <!-- Extensions -->
+    <section>
+      <h2>Extensions & Future Work</h2>
+      <ul>
+        <li>Calibration with real-world traffic data (e.g., Caltrans loop detectors)</li>
+        <li>Integration with emissions models using Vehicle Specific Power (VSP)</li>
+        <li>Equity and policy scenario analysis</li>
+      </ul>
+    </section>
+
+    <!-- Takeaways -->
+    <section>
+      <h2>Key Takeaways</h2>
+      <p>
+        This project strengthened my ability to translate real-world systems into modular,
+        testable simulation code. It also highlighted the importance of behavioral modeling
+        and domain knowledge when interpreting computational results.
+      </p>
+    </section>
+
+    <footer>
+      <p>© 2025 Andrew Cai</p>
+    </footer>
+
+  </div>
+</body>
+</html>
