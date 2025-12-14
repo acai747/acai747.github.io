@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Steam Game Rating Prediction | Andrew Cai</title>
+  <meta name="description" content="Binary classification on Steam game data to predict positive ratings using scikit-learn/TensorFlow and feature engineering." />
+
+  <style>
+    :root{
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --ink:#1f2a44;
+      --muted:#58627a;
+      --brand:#2563eb;
+      --ring: rgba(37,99,235,.25);
+      --border:#e9e9f3;
+      --shadow: 0 8px 24px rgba(31,42,68,.06);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      margin:0;
+      line-height:1.6;
+    }
+    .wrap{ max-width: 900px; margin:0 auto; padding:24px; }
+
+    header{ padding: 18px 0 8px; }
+    header a{
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+    }
+    header a:hover{ text-decoration:underline; }
+
+    h1{
+      margin: 10px 0 6px;
+      font-size: 1.9rem;
+      letter-spacing:-.2px;
+    }
+    h2{ margin-top: 26px; font-size: 1.25rem; }
+    h3{ margin-top: 18px; font-size: 1.05rem; }
+    p{ margin: 10px 0; }
+    ul{ margin: 8px 0 8px 18px; }
+    li{ margin: 6px 0; }
+
+    .meta{ color:var(--muted); font-size:.95rem; }
+
+    section{
+      background:var(--card);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      padding:20px;
+      margin: 16px 0;
+      border: 1px solid var(--border);
+    }
+
+    .hero img{
+      width:100%;
+      border-radius:12px;
+      margin-top: 10px;
+      background:#eaeaf3;
+    }
+
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .pill{
+      font-size: .88rem;
+      background:#f3f6ff;
+      border:1px solid #e1e6ff;
+      padding:4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid #d6daf1;
+      text-decoration:none;
+      color:var(--brand);
+      font-weight:700;
+      background:#f8faff;
+      margin-right: 8px;
+      margin-top: 6px;
+    }
+    .btn:hover{ box-shadow:0 0 0 4px var(--ring); }
+
+    .code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background:#f3f6ff;
+      border:1px solid #e1e6ff;
+      padding:2px 6px;
+      border-radius:6px;
+      font-size: .95em;
+    }
+
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .kpi .box{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      background:#fff;
+    }
+    .kpi .box strong{ display:block; margin-bottom: 4px; }
+    .kpi .box span{ color:var(--muted); font-size: .95rem; }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:24px 0 6px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- Back navigation -->
+    <header>
+      <a href="../../index.html">← Back to Portfolio</a>
+    </header>
+
+    <!-- Title / Overview -->
+    <section class="hero">
+      <h1>Steam Game Rating Prediction (Binary Classification)</h1>
+      <p class="meta">
+        Classification · Feature Engineering · Model Comparison · scikit-learn · TensorFlow
+      </p>
+
+      <!-- Optional hero image -->
+      <img src="../img/steam-rating.png" alt="Steam rating prediction results preview (model metrics / feature importance)" />
+
+      <div class="pillrow">
+        <span class="pill">Python</span>
+        <span class="pill">Pandas</span>
+        <span class="pill">scikit-learn</span>
+        <span class="pill">TensorFlow</span>
+        <span class="pill">Feature Engineering</span>
+        <span class="pill">Binary Classification</span>
+      </div>
+
+      <p>
+        Built a binary classifier to predict whether a Steam game would receive a positive rating based on structured attributes
+        such as platform support, pricing/discount signals, and game tags.
+      </p>
+
+      <p>
+        <a class="btn" href="https://github.com/acai747/SteamRating_ML_TensorFlow" target="_blank" rel="noopener">GitHub Repo</a>
+      </p>
+    </section>
+
+    <!-- Problem -->
+    <section>
+      <h2>Problem Statement</h2>
+      <p>
+        Steam hosts thousands of games with varying quality, pricing strategies, and platform availability. Predicting whether a game
+        is likely to be positively rated can help with product analysis, merchandising strategy, and understanding what features correlate
+        with customer satisfaction.
+      </p>
+      <p>
+        The goal of this project was to build an interpretable binary classification workflow and compare traditional ML methods with a
+        neural network approach.
+      </p>
+    </section>
+
+    <!-- Data -->
+    <section>
+      <h2>Data</h2>
+      <p>
+        Used a dataset of 50,000+ cleaned and preprocessed Steam game records containing game attributes and review outcomes.
+      </p>
+      <ul>
+        <li>Size: 50K+ records</li>
+        <li>Inputs: platform support (Windows/Mac), price/discount flags, tags/genres, metadata fields</li>
+        <li>Target: binary label indicating whether the game receives a positive rating</li>
+      </ul>
+    </section>
+
+    <!-- Approach -->
+    <section>
+      <h2>Approach</h2>
+      <p>
+        I built a supervised learning workflow including preprocessing, feature engineering, model training, and evaluation.
+      </p>
+
+      <ul>
+        <li>Preprocessed structured fields and encoded categorical attributes (e.g., tags)</li>
+        <li>Engineered useful features from pricing and discount metadata</li>
+        <li>Trained and evaluated multiple classification models for comparison</li>
+        <li>Compared a baseline ML approach vs a deep learning approach (TensorFlow)</li>
+      </ul>
+      </p>
+    </section>
+
+    <!-- Models -->
+    <section>
+      <h2>Models</h2>
+      <ul>
+        <li><strong>Deep learning</strong>: feedforward neural network in TensorFlow</li>
+      </ul>
+
+      <div class="kpi">
+        <div class="box">
+          <strong>Baseline Goal</strong>
+          <span>Strong interpretability + solid performance with simpler features</span>
+        </div>
+        <div class="box">
+          <strong>NN Goal</strong>
+          <span>Capture non-linear interactions across metadata and tags</span>
+        </div>
+        <div class="box">
+          <strong>Outcome</strong>
+          <span>Compared performance, generalization, and deployment tradeoffs</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section>
+      <h2>Results & Observations</h2>
+      <ul>
+        <li>Identified which features most strongly correlate with positive ratings (e.g., tags, pricing signals, platform support)</li>
+        <li>Documented performance tradeoffs between classical ML and neural networks</li>
+        <li>Validated generalization on held-out data and avoided overfitting through evaluation discipline</li>
+      </ul>
+      </p>
+    </section>
+
+    <!-- Challenges -->
+    <section>
+      <h2>Challenges & Limitations</h2>
+      <ul>
+        <li>High-cardinality categorical features (game tags) required careful encoding</li>
+        <li>Potential label noise due to review manipulation or small sample sizes per game</li>
+        <li>Strong interaction effects between genre, price, and platform availability</li>
+      </ul>
+    </section>
+
+    <!-- Extensions -->
+    <section>
+      <h2>Extensions & Future Work</h2>
+      <ul>
+        <li>Use text review content (NLP) to augment structured features</li>
+        <li>Calibrate probabilities to support business decisions (risk-aware thresholds)</li>
+        <li>Build separate models by genre or price tier to reduce heterogeneity</li>
+        <li>Deploy as a dashboard tool for product/market analysis</li>
+      </ul>
+    </section>
+
+    <!-- Takeaways -->
+    <section>
+      <h2>Key Takeaways</h2>
+      <p>
+        This project strengthened my end-to-end supervised learning workflow skills, especially feature engineering on real-world metadata
+        and comparing classical ML with deep learning approaches. It also reinforced the importance of model interpretability and selecting
+        evaluation metrics aligned to the business question.
+      </p>
+    </section>
+
+    <footer>
+      <p>© 2025 Andrew Cai</p>
+    </footer>
+
+  </div>
+</body>
+</html>
