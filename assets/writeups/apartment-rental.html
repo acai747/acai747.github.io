@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apartment Rental Analysis | Andrew Cai</title>
+  <meta name="description" content="Exploratory data analysis on apartment listings to understand rent drivers, seasonality, and market trends." />
+
+  <style>
+    :root{
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --ink:#1f2a44;
+      --muted:#58627a;
+      --brand:#2563eb;
+      --ring: rgba(37,99,235,.25);
+      --border:#e9e9f3;
+      --shadow: 0 8px 24px rgba(31,42,68,.06);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      margin:0;
+      line-height:1.6;
+    }
+    .wrap{ max-width: 900px; margin:0 auto; padding:24px; }
+
+    header{ padding: 18px 0 8px; }
+    header a{
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+    }
+    header a:hover{ text-decoration:underline; }
+
+    h1{
+      margin: 10px 0 6px;
+      font-size: 1.9rem;
+      letter-spacing:-.2px;
+    }
+    h2{ margin-top: 26px; font-size: 1.25rem; }
+    h3{ margin-top: 18px; font-size: 1.05rem; }
+    p{ margin: 10px 0; }
+    ul{ margin: 8px 0 8px 18px; }
+    li{ margin: 6px 0; }
+
+    .meta{ color:var(--muted); font-size:.95rem; }
+
+    section{
+      background:var(--card);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      padding:20px;
+      margin: 16px 0;
+      border: 1px solid var(--border);
+    }
+
+    .hero img{
+      width:100%;
+      border-radius:12px;
+      margin-top: 10px;
+      background:#eaeaf3;
+    }
+
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .pill{
+      font-size: .88rem;
+      background:#f3f6ff;
+      border:1px solid #e1e6ff;
+      padding:4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid #d6daf1;
+      text-decoration:none;
+      color:var(--brand);
+      font-weight:700;
+      background:#f8faff;
+      margin-right: 8px;
+      margin-top: 6px;
+    }
+    .btn:hover{ box-shadow:0 0 0 4px var(--ring); }
+
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .kpi .box{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      background:#fff;
+    }
+    .kpi .box strong{ display:block; margin-bottom: 4px; }
+    .kpi .box span{ color:var(--muted); font-size: .95rem; }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:24px 0 6px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- Back navigation -->
+    <header>
+      <a href="../../index.html">← Back to Portfolio</a>
+    </header>
+
+    <!-- Title / Overview -->
+    <section class="hero">
+      <h1>Apartment Rental Analysis (EDA)</h1>
+      <p class="meta">
+        Exploratory Data Analysis · Trend Analysis · Feature Relationships · Data Visualization
+      </p>
+
+      <!-- Optional hero image -->
+      <img src="../img/apartment-rental.png" alt="Apartment rental trends dashboard or visualization preview" />
+
+      <div class="pillrow">
+        <span class="pill">Python</span>
+        <span class="pill">Pandas</span>
+        <span class="pill">NumPy</span>
+        <span class="pill">Visualization</span>
+        <span class="pill">EDA</span>
+        <span class="pill">Time Trends</span>
+      </div>
+
+      <p>
+        Analyzed a dataset of apartment availability and listing attributes to understand what drives rental prices,
+        identify seasonal patterns, and surface practical insights for renters and market planning.
+      </p>
+
+      <p>
+        <a class="btn" href="https://github.com/acai747/Apartment-Rental-Analysis" target="_blank" rel="noopener">GitHub Repo</a>
+      </p>
+    </section>
+
+    <!-- Problem -->
+    <section>
+      <h2>Problem Statement</h2>
+      <p>
+        Rental markets are influenced by location, supply dynamics, and seasonality. Renters often want answers to practical questions:
+        When is the best time to search? Which cities tend to be most expensive? What listing attributes consistently increase rent?
+      </p>
+      <p>
+        The goal of this project was to translate raw listing data into actionable insights about pricing drivers and market trends.
+      </p>
+    </section>
+
+    <!-- Data -->
+    <section>
+      <h2>Data</h2>
+      <p>
+        Used a dataset containing apartment availabilities from December 2008 to December 2009, with ~100,000 records and 22 features.
+      </p>
+      <ul>
+        <li>Time period: Dec 2008 – Dec 2009</li>
+        <li>Size: ~100K records</li>
+        <li>Features: listing attributes (e.g., bedrooms, bathrooms, size), location/city, pricing, and related metadata</li>
+      </ul>
+    </section>
+
+    <!-- Approach -->
+    <section>
+      <h2>Approach</h2>
+      <p>
+        I performed a structured EDA workflow to clean data, validate assumptions, and quantify relationships between rent and key features.
+      </p>
+
+      <ul>
+        <li>Data cleaning (null handling, outliers, type fixes)</li>
+        <li>Univariate analysis of rent distributions and key numeric fields</li>
+        <li>Feature relationships (rent vs bedrooms, size, location, etc.)</li>
+        <li>Seasonality analysis over time (monthly trends and shifts)</li>
+        <li>Segmented analysis by city/market to compare rent levels and variability</li>
+      </ul>
+    </section>
+
+    <!-- Key Findings -->
+    <section>
+      <h2>Key Findings</h2>
+
+      <div class="kpi">
+        <div class="box">
+          <strong>Seasonality</strong>
+          <span>Identified periods where rent/availability patterns shifted meaningfully.</span>
+        </div>
+        <div class="box">
+          <strong>Top Price Drivers</strong>
+          <span>Quantified which listing attributes most strongly influence rent.</span>
+        </div>
+        <div class="box">
+          <strong>Market Differences</strong>
+          <span>Compared high-cost vs lower-cost cities and variability over time.</span>
+        </div>
+      </div>
+
+      <ul style="margin-top:12px;">
+        <li>Rent increases were strongly associated with key features such as size and bedroom count (with market-specific variation)</li>
+        <li>Certain cities consistently exhibited higher rent distributions and greater variance</li>
+        <li>Time-based trends suggested seasonal market behaviors affecting availability and/or pricing</li>
+      </ul>
+    </section>
+
+    <!-- Visualization -->
+    <section>
+      <h2>Visualization & Reporting</h2>
+      <p>
+        Produced visual summaries and charts to communicate findings clearly, including distribution plots, time trend charts,
+        and segmented comparisons by city and key listing attributes.
+      </p>
+
+      <ul>
+        <li>Rent distribution and outlier inspection</li>
+        <li>Rent vs size/bedrooms comparisons</li>
+        <li>Monthly/seasonal trend plots</li>
+        <li>City-level comparisons (median, spread, and rank)</li>
+      </ul>
+    </section>
+
+    <!-- Challenges -->
+    <section>
+      <h2>Challenges & Limitations</h2>
+      <ul>
+        <li>Data may reflect listed rents rather than signed lease prices</li>
+        <li>Location granularity may be limited (city vs neighborhood)</li>
+        <li>Short time range (1 year) limits longer-term market conclusions</li>
+      </ul>
+    </section>
+
+    <!-- Extensions -->
+    <section>
+      <h2>Extensions & Future Work</h2>
+      <ul>
+        <li>Build a rent prediction model (regression) with calibrated confidence intervals</li>
+        <li>Add neighborhood-level data and external signals (CPI, interest rates, job growth)</li>
+        <li>Create an interactive dashboard for renters (best time to search, city comparisons)</li>
+      </ul>
+    </section>
+
+    <!-- Takeaways -->
+    <section>
+      <h2>Key Takeaways</h2>
+      <p>
+        This project strengthened my ability to translate large, messy datasets into clear insights through structured EDA and visualization.
+        It also reinforced how to frame analysis around real user questions and communicate conclusions for decision-making.
+      </p>
+    </section>
+
+    <footer>
+      <p>© 2025 Andrew Cai</p>
+    </footer>
+
+  </div>
+</body>
+</html>
