@@ -5,47 +5,203 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Andrew Cai | Portfolio</title>
   <meta name="description" content="Portfolio of Andrew Cai – Data Science, Analytics, and ML projects" />
+
   <style>
     :root{
-      --bg:#f7f7fb; --card:#ffffff; --ink:#1f2a44; --muted:#58627a; --brand:#2563eb;
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --ink:#1f2a44;
+      --muted:#58627a;
+      --brand:#2563eb;
       --ring: rgba(37,99,235,.25);
+      --border:#e9e9f3;
+      --shadow: 0 8px 24px rgba(31,42,68,.06);
+      --shadowHover: 0 12px 28px rgba(31,42,68,.10);
     }
-    *{box-sizing:border-box}
-    body{font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--ink); margin:0}
-    .wrap{max-width: 1000px; margin:0 auto; padding:24px}
-    header{ text-align:center; padding:32px 0 8px }
-    h1{ font-size: 2rem; margin: 0 0 4px }
-    .tagline{ color:var(--muted); margin:0 0 16px }
-    nav{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:24px }
-    nav a{ color:var(--brand); text-decoration:none; font-weight:600 }
-    nav a:hover{ text-decoration:underline }
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      margin:0;
+      line-height:1.55;
+    }
+    .wrap{ max-width: 1040px; margin:0 auto; padding:24px; }
 
-    section{ background:var(--card); border-radius:14px; box-shadow: 0 8px 24px rgba(31,42,68,.06);
-             padding:20px; margin: 18px 0 }
-    section h2{ margin:6px 0 12px }
+    /* Header */
+    header{
+      text-align:center;
+      padding:34px 0 12px;
+    }
+    h1{ font-size: 2.15rem; margin: 0 0 6px; letter-spacing:-.2px; }
+    .tagline{ color:var(--muted); margin:0 0 14px; font-weight:550; }
+    .subtag{
+      color:var(--muted);
+      margin:0 auto 18px;
+      max-width: 860px;
+      font-size: .98rem;
+    }
 
-    .grid{ display:grid; grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) ); gap:16px }
-    .card{ background:var(--card); border:1px solid #e9e9f3; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; transition:.2s transform, .2s box-shadow }
-    .card:hover{ transform: translateY(-2px); box-shadow:0 12px 28px rgba(31,42,68,.10) }
-    .thumb{ width:100%; aspect-ratio: 16/9; object-fit:cover; background:#eaeaf3 }
-    .card-body{ padding:14px 16px 16px }
-    .card h3{ font-size:1.05rem; margin:0 0 6px }
-    .meta{ color:var(--muted); font-size:.9rem; margin-bottom:8px }
-    .links{ margin-top:auto; display:flex; flex-wrap:wrap; gap:10px }
-    .btn{ display:inline-block; padding:8px 12px; border-radius:10px; border:1px solid #d6daf1; text-decoration:none; color:var(--brand); font-weight:600; background:#f8faff }
-    .btn:hover{ border-color:#c9cff3; box-shadow:0 0 0 4px var(--ring) }
+    nav{
+      display:flex;
+      gap:16px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin: 10px 0 0;
+    }
+    nav a{
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+      padding: 6px 10px;
+      border-radius: 10px;
+    }
+    nav a:hover{
+      box-shadow: 0 0 0 4px var(--ring);
+      background:#f8faff;
+    }
 
-    .list ul{ margin:0; padding-left: 18px }
-    footer{ text-align:center; color:var(--muted); padding:28px 0 }
+    /* Sections */
+    section{
+      background:var(--card);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      padding:20px;
+      margin: 18px 0;
+      border: 1px solid rgba(0,0,0,0.00);
+    }
+    section h2{ margin:6px 0 12px; font-size: 1.25rem; }
+    section h3{ margin: 10px 0 10px; font-size: 1.05rem; }
 
-    .kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background:#f0f3ff; border:1px solid #e1e6ff; padding:2px 6px; border-radius:6px }
+    .meta{ color:var(--muted); font-size:.95rem; margin: 0 0 10px; }
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .pill{
+      font-size: .88rem;
+      color: var(--ink);
+      background:#f3f6ff;
+      border:1px solid #e1e6ff;
+      padding:4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* Buttons / links */
+    .btn{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid #d6daf1;
+      text-decoration:none;
+      color:var(--brand);
+      font-weight:700;
+      background:#f8faff;
+    }
+    .btn:hover{
+      border-color:#c9cff3;
+      box-shadow:0 0 0 4px var(--ring);
+    }
+    .btn.primary{
+      background: var(--brand);
+      color: white;
+      border-color: rgba(0,0,0,0);
+    }
+    .btn.primary:hover{
+      box-shadow:0 0 0 4px var(--ring);
+      filter: brightness(0.98);
+    }
+
+    .quick-links{
+      margin-top: 10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-start;
+      align-items:center;
+    }
+    .quick-links .sep{ color: var(--muted); opacity:.8; }
+
+    /* Projects grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat( auto-fit, minmax(270px, 1fr) );
+      gap:16px;
+      margin-top: 10px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      transition:.2s transform, .2s box-shadow;
+      min-height: 100%;
+    }
+    .card:hover{ transform: translateY(-2px); box-shadow: var(--shadowHover); }
+    .thumb{
+      width:100%;
+      aspect-ratio: 16/9;
+      object-fit:cover;
+      background:#eaeaf3;
+      display:block;
+    }
+    .card-body{
+      padding:14px 16px 16px;
+      display:flex;
+      flex-direction:column;
+      height: 100%;
+    }
+    .card h4{
+      font-size:1.02rem;
+      margin:0 0 6px;
+    }
+    .card .meta{ margin-bottom:10px; }
+    .links{
+      margin-top:auto;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    /* Two-column helper for contact */
+    .cols{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+    }
+    @media (max-width: 820px){
+      .cols{ grid-template-columns: 1fr; }
+      header{ padding-top: 26px; }
+    }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:28px 0 10px;
+      font-size: .95rem;
+    }
+
+    /* Small accessibility improvement */
+    a:focus{ outline: none; box-shadow: 0 0 0 4px var(--ring); border-radius: 10px; }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header>
       <h1>Andrew Cai</h1>
       <p class="tagline">Data Science • Analytics • Machine Learning</p>
+      <p class="subtag">
+        Building end-to-end analytics solutions across ML, BI dashboards, and data pipelines.
+        Experience includes San Francisco International Airport, Northrop Grumman, AT&T, and Intel.
+      </p>
+
       <nav>
         <a href="#about">About</a>
         <a href="#resume">Resume</a>
@@ -54,169 +210,279 @@
       </nav>
     </header>
 
+    <!-- ABOUT -->
     <section id="about">
-      <h2>👋 About Me</h2>
+      <h2>About</h2>
       <p>
-        👀 I’m interested in data driven initiatives through data processing and visualization tools to drive business success
-        <br>🌱 I’m currently learning Data Science at Northeastern University
-        <br>💞️ I’m looking to collaborate on machine learning and data analysis projects to develop my skills even further!
-        <br>📫 How to best reach me: cai.and@northeastern.edu
-        <br>😄 Pronouns: He/Him
-        <br>⚡ Fun fact: I pivoted my career from Materials Science and Engineering to Data Science!
+        I’m a recent graduate at Northeastern University with a M.S. in Data Science and have industry experience across infrastructure,
+        defense, telecom, and manufacturing. I build reliable analytics products—from ETL and data validation to machine learning
+        models and stakeholder-ready dashboards (Power BI/Tableau).
       </p>
-    </section>
-
-    <section id="resume">
-      <h2>📄 Resume</h2>
       <p>
-        <!-- Put your PDF at assets/resume.pdf (recommended) or replace the href with a Drive/OneDrive link -->
-        <a class="btn" href="assets/Resume_Andrew Cai.pdf" target="_blank" rel="noopener">Download my resume (PDF)</a>
+        Recently, I developed an XGBoost forecasting model to predict hourly airport congestion and deployed it to a Power BI dashboard,
+        reducing manual reporting development time by 90%. I’m seeking data analyst, business analyst, and data science roles where I can
+        deliver measurable impact through high-quality, verifiable analytics.
       </p>
-    </section>
 
-    <section id="projects">
-      <h2>⭐ Projects</h2>
-      <p class="meta"></span>.</p>
-
-      <div class="grid">
-        <!-- Pharma Sales Analysis -->
-        <article class="card">
-          <a href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">
-            <img class="thumb" src="assets/img/pharma-sales.png" alt="Pharmaceutical Analysis dashboard preview" />
-          </a>
-          <div class="card-body">
-            <h3>Pharmaceutical Sales Analysis</h3>
-            <p class="meta">Dashboard Analysis of Pharmaceutical Manufacturers and Sales Data</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">Repo</a>
-            </div>
-          </div>
-        </article>
-        
-         <!-- Hospital and Insurance Analysis -->
-        <article class="card">
-          <a href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">
-            <img class="thumb" src="assets/img/hospital-insurance.png" alt="Hospital and Insurance Analysis dashboard preview" />
-          </a>
-          <div class="card-body">
-            <h3>Healthcare Insurance Patient Analysis</h3>
-            <p class="meta">Demographic analysis of patients along with their hopsital and medical insurance costs across the U.S.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">Repo</a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Apartment Rental Analysis -->
-        <article class="card">
-          <a href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">
-            <img class="thumb" src="assets/img/apartment-rental.png" alt="Apartment Rental Analysis preview" />
-          </a>
-          <div class="card-body">
-            <h3>Apartment Rental Analysis</h3>
-            <p class="meta">Seasonal pricing trends across the U.S. using features like bedrooms and size.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">Repo</a>
-              <!-- Optional: direct link to subfolder if you have one, e.g. /tree/main/apartment-rental-analysis -->
-              <!-- <a class="btn" href="https://github.com/acai747/Portfolio/tree/main/apartment-rental-analysis" target="_blank" rel="noopener">Project Folder</a> -->
-            </div>
-          </div>
-        </article>
-
-        <!-- Binary Classification of Drug Users -->
-        <article class="card">
-          <a href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">
-            <img class="thumb" src="assets/img/drug-users-binary.png" alt="Binary classification model preview" />
-          </a>
-          <div class="card-body">
-            <h3>Binary Classification of Drug Users</h3>
-            <p class="meta">Built and evaluated classifiers; compared metrics and feature importance.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">Repo</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- K-Means Clustering for Water Treatment Plants -->
-        <article class="card">
-          <a href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">
-            <img class="thumb" src="assets/img/water-kmeans.png" alt="K-Means clusters for water treatment plants" />
-          </a>
-          <div class="card-body">
-            <h3>K‑Means Clustering for Water Treatment Plants</h3>
-            <p class="meta">Clustered water systems to guide treatments for harmful contaminants.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">Repo</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- LEGO Set Rating Predictions -->
-        <article class="card">
-          <a href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">
-            <img class="thumb" src="assets/img/lego-rating.png" alt="LEGO rating prediction charts" />
-          </a>
-          <div class="card-body">
-            <h3>LEGO Set Rating Predictions</h3>
-            <p class="meta">Predicted audience reception using features like piece count, theme, and price.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">Repo</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Sentiment Analysis of Airline Reviews -->
-        <article class="card">
-          <a href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">
-            <img class="thumb" src="assets/img/airline-sentiment.png" alt="Airline sentiment comparison VADER vs RoBERTa" />
-          </a>
-          <div class="card-body">
-            <h3>Sentiment Analysis of Airline Reviews</h3>
-            <p class="meta">Compared VADER vs RoBERTa to identify best use cases across review types.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">Repo</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Steam Game Rating Prediction -->
-        <article class="card">
-          <a href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">
-            <img class="thumb" src="assets/img/steam-rating.png" alt="Steam game rating prediction visuals" />
-          </a>
-          <div class="card-body">
-            <h3>Steam Game Rating Prediction</h3>
-            <p class="meta">Modeled player ratings with feature engineering and model comparison.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/acai747/Portfolio" target="_blank" rel="noopener">Repo</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Collaborative RAG project -->
-        <article class="card">
-          <a href="https://github.com/sruxll/rag_us_congressional_bills-RAG" target="_blank" rel="noopener">
-            <img class="thumb" src="assets/img/rag-bills.png" alt="RAG system for U.S. Congressional bills – Streamlit UI" />
-          </a>
-          <div class="card-body">
-            <h3>RAG for U.S. Congressional Bills (Collaboration)</h3>
-            <p class="meta">Streamlit app + Docker image summarizing bills from the 115th–119th Congress on GCP.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/sruxll/rag_us_congressional_bills" target="_blank" rel="noopener">Collab Repo</a>
-              <!-- Optional: add a write-up page later -->
-            </div>
-          </div>
-        </article>
+      <div class="pillrow" aria-label="Skills highlights">
+        <span class="pill">Python</span>
+        <span class="pill">SQL</span>
+        <span class="pill">Power BI</span>
+        <span class="pill">Tableau</span>
+        <span class="pill">Snowflake</span>
+        <span class="pill">ETL & Data Validation</span>
+        <span class="pill">NLP</span>
+        <span class="pill">Forecasting</span>
+        <span class="pill">RAG</span>
       </div>
-    </section>
 
-    <section id="contact">
-      <h2>📫 Contact</h2>
-      <p>
+      <div class="quick-links" style="margin-top:14px;">
         <a class="btn" href="mailto:cai.and@northeastern.edu">Email</a>
         <a class="btn" href="https://github.com/acai747" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/andrew-cai1225/" target="_blank" rel="noopener">LinkedIn</a>
+        <span class="sep">•</span>
+        <span class="meta" style="margin:0;">He/Him</span>
+      </div>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume">
+      <h2>Resume</h2>
+      <p>
+        <a class="btn primary" href="assets/resume.pdf" target="_blank" rel="noopener">Download Resume (PDF)</a>
       </p>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <p class="meta">
+        Featured projects reflect my most end-to-end builds. “More” projects are additional modeling, BI, and analysis work.
+      </p>
+
+      <h3>Featured</h3>
+      <div class="grid">
+
+        <!-- RAG: Congressional Bills -->
+        <article class="card">
+          <a href="https://github.com/sruxll/rag_us_congressional_bills-RAG" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/rag-bills.png" alt="RAG system for U.S. Congressional bills (Streamlit UI preview)" />
+          </a>
+          <div class="card-body">
+            <h4>RAG for U.S. Congressional Bills</h4>
+            <p class="meta">
+              Collaboratively built a citation-backed Q&A + summarization system over bill text using FAISS + all-MiniLM-L6-v2 embeddings and free LLMs (OpenRouter).
+              Deployed a Streamlit UI on GCP with a focus on verifiability and low hallucination.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/sruxll/rag_us_congressional_bills" target="_blank" rel="noopener">Collab Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Traffic Simulation -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_TRAFFIC_SIM_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/traffic-sim.png" alt="Multi-lane traffic simulation preview" />
+          </a>
+          <div class="card-body">
+            <h4>Multi-Lane Traffic Simulation (Entrances/Exits)</h4>
+            <p class="meta">
+              Developed a particle-based traffic simulator in Python to model merging, lane changes, braking/acceleration, and exit behavior.
+              Includes robust unit tests and Vehicle Specific Power (VSP) tracking for emissions-oriented analysis.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_TRAFFIC_SIM_REPO" target="_blank" rel="noopener">Repo</a>
+              <a class="btn" href="assets/writeups/traffic-simulator.html" target="_blank" rel="noopener">Write-up</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Playlist Anomaly Detection -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_PLAYLIST_ANOMALY_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/playlist-anomaly.png" alt="Playlist anomaly detection and recommendations preview" />
+          </a>
+          <div class="card-body">
+            <h4>Playlist “Vibe” Anomaly Detection + Recommendations</h4>
+            <p class="meta">
+              Detected off-vibe tracks within a playlist using standardized Spotify audio features, cosine distance to a playlist centroid, and z-scores.
+              Recommended replacements that better match the dominant vibe; explored limitations for multi-vibe playlists.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_PLAYLIST_ANOMALY_REPO" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Drug User Classification -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_DRUG_CLASSIFICATION_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/drug-classification.png" alt="Drug use classification model results preview" />
+          </a>
+          <div class="card-body">
+            <h4>Drug Use Prediction (Imbalanced Classification)</h4>
+            <p class="meta">
+              Evaluated multiple classifiers under class imbalance; reframed the task from multiclass to binary to improve stability.
+              Best models included Linear SVM (balanced) and Complement Naïve Bayes, measured with precision/recall and AUC.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_DRUG_CLASSIFICATION_REPO" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Airline Reviews Sentiment -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_AIRLINE_SENTIMENT_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/airline-sentiment.png" alt="Airline sentiment analysis preview" />
+          </a>
+          <div class="card-body">
+            <h4>Sentiment Analysis: VADER vs RoBERTa</h4>
+            <p class="meta">
+              Built a sentiment pipeline on 20K+ airline reviews and compared a lexicon baseline (VADER) against a transformer model (RoBERTa).
+              Documented performance tradeoffs, robustness, and practical deployment considerations.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_AIRLINE_SENTIMENT_REPO" target="_blank" rel="noopener">Repo</a>
+              <a class="btn" href="assets/writeups/airline-sentiment.html" target="_blank" rel="noopener">Write-up</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Pharma Sales Dashboard -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_PHARMA_DASHBOARD_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/pharma-sales.png" alt="Pharmaceutical sales dashboard preview" />
+          </a>
+          <div class="card-body">
+            <h4>Pharmaceutical Sales Dashboard</h4>
+            <p class="meta">
+              Built a Power BI dashboard for daily pharma sales, pricing, customers, and manufacturer performance.
+              Designed KPIs and drilldowns to support commercial insights and operational reporting.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_PHARMA_DASHBOARD_REPO" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <h3 style="margin-top:18px;">More</h3>
+      <div class="grid">
+
+        <!-- Insurance/Hospital Dashboard -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_HEALTHCARE_DASHBOARD_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/hospital-insurance.png" alt="Insurance and hospital demographics dashboard preview" />
+          </a>
+          <div class="card-body">
+            <h4>Insurance & Hospital Demographics Dashboard</h4>
+            <p class="meta">
+              Power BI reporting for patient demographics, coverage, and hospital-level trends with interactive filters and KPI summaries.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_HEALTHCARE_DASHBOARD_REPO" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Steam Game Rating -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_STEAM_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/steam-rating.png" alt="Steam rating prediction preview" />
+          </a>
+          <div class="card-body">
+            <h4>Steam Game Rating Prediction</h4>
+            <p class="meta">
+              Binary classification on 50K+ games using scikit-learn/TensorFlow with feature engineering on tags, pricing, discounts, and platform support.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_STEAM_REPO" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Apartment Rental Analysis -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_APARTMENT_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/apartment-rental.png" alt="Apartment rental analysis preview" />
+          </a>
+          <div class="card-body">
+            <h4>Apartment Rental Analysis</h4>
+            <p class="meta">
+              Explored seasonality and rent drivers across 100K listings; surfaced timing and market insights useful for renters and planners.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_APARTMENT_REPO" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- LEGO Rating -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_LEGO_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/lego-rating.png" alt="LEGO rating prediction preview" />
+          </a>
+          <div class="card-body">
+            <h4>LEGO Set Rating Prediction (Naïve Bayes)</h4>
+            <p class="meta">
+              Applied Naïve Bayes to predict whether a LEGO set would achieve a 4-star+ rating, translating Bayes/conditional probability into a product analytics task.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_LEGO_REPO" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- K-Means Water Treatment -->
+        <article class="card">
+          <a href="https://github.com/YOUR_USERNAME/YOUR_WATER_REPO" target="_blank" rel="noopener">
+            <img class="thumb" src="assets/img/water-kmeans.png" alt="Water treatment clustering preview" />
+          </a>
+          <div class="card-body">
+            <h4>K-Means Clustering for Water Treatment</h4>
+            <p class="meta">
+              Tested K-Means + PCA to cluster water systems for treatment planning; results highlighted the importance of domain checks when clusters collapse.
+            </p>
+            <div class="links">
+              <a class="btn" href="https://github.com/YOUR_USERNAME/YOUR_WATER_REPO" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="meta" style="margin-top:12px;">
+        Want to see more? Visit my GitHub:
+        <a href="https://github.com/acai747" target="_blank" rel="noopener">github.com/acai747</a>
+      </p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="cols">
+        <div>
+          <p class="meta">
+            The quickest way to reach me is email. I’m also active on LinkedIn and keep code + write-ups on GitHub.
+          </p>
+          <p>
+            <a class="btn primary" href="mailto:cai.and@northeastern.edu">Email</a>
+            <a class="btn" href="https://www.linkedin.com/in/andrew-cai1225/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="https://github.com/acai747" target="_blank" rel="noopener">GitHub</a>
+          </p>
+        </div>
+        <div>
+          <p class="meta"><strong>Quick details</strong></p>
+          <p class="meta" style="margin-top:0;">
+            Location: Bay Area / Open to remote<br />
+            Interests: Analytics, ML, BI, Applied AI<br />
+            Tools: Python, SQL, Power BI, Tableau, Snowflake
+          </p>
+        </div>
+      </div>
     </section>
 
     <footer>
